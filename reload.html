@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="resultat"></div>
+
+<input type="button" value="Sheet 1" data-gid="1"/>
+<input type="button" value="Sheet 2" data-gid="2"/>
+<input type="button" value="Sheet 3" data-gid="3"/>
+<input type="button" value="Sheet 4" data-gid="4"/>
+<input type="button" value="Sheet 5" data-gid="5"/>
+
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    
+    var $r = $('#resultat');
+
+    $('input').click(function() {
+	var $t = $(this), gid = $t.data('gid');
+	$.ajax('./proxy.php?ac=reload&gid=' + gid, {
+	    type: 'GET',
+	    dataType: 'json',
+	    cache: false,
+	    error: function(a, b, c) {
+		$r.html('<b>Error : </b><div>' + c + '</div>');
+	    },
+	    success:function(data, a, b, c) {
+		$r.html('<b>OK : </b><div>'+data+'</div>');
+	    }
+	});
+	
+	
+    });
+});
+</script>
+</body>
+</html>
