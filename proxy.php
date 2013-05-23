@@ -31,9 +31,11 @@ if (isset($_GET['ac']) && $_GET['ac'] == 'reload') {
 
   $tmp = $file . 'tmp';
   $f = fopen($tmp, 'w');
-  fwrite($f, $json);
-  fclose($f);
-  rename($tmp, $file);
+  if ($f) {
+    fwrite($f, $json);
+    fclose($f);
+    rename($tmp, $file);
+  }
 }
 
 
